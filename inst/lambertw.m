@@ -15,7 +15,7 @@
 
 ## -*- texinfo -*-
 ## @deftypefn {Function File} {@var{x} = } lambertw (@var{z})
-## @deftypefnx {Function File} {@var{x} = } lambertw (@var{z}, @var{n})
+## @deftypefnx {Function File} {@var{x} = } lambertw (@var{n}, @var{z})
 ## Compute the Lambert W function of @var{z}.
 ##
 ## This function satisfies W(z).*exp(W(z)) = z, and can thus be used to express
