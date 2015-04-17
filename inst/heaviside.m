@@ -1,4 +1,5 @@
 ## Copyright (C) 2006 Sylvain Pelissier <sylvain.pelissier@gmail.com>
+## Copyright (C) 2015 Colin B. Macdonald <cbm@m.fsf.org>
 ##
 ## This program is free software; you can redistribute it and/or modify it under
 ## the terms of the GNU General Public License as published by the Free Software
@@ -14,28 +15,60 @@
 ## this program; if not, see <http://www.gnu.org/licenses/>.
 
 ## -*- texinfo -*-
-## @deftypefn {Function File} {} heaviside(@var{x})
-## @deftypefnx{Function File} {} heaviside(@var{x}, @var{zero_value})
-## Compute the Heaviside step function.
+## @deftypefn  {Function File} {@var{y} =} heaviside (@var{x})
+## @deftypefnx {Function File} {@var{y} =} heaviside (@var{x}, @var{zero_value})
+## Compute the Heaviside unit-step function.
 ##
-## The Heaviside function is defined as
+## The Heaviside function is 0 for negative @var{x} and 1 for
+## positive @var{x}.
 ##
+## Example:
 ## @example
-##   Heaviside (@var{x}) = 1,   @var{x} > 0
-##   Heaviside (@var{x}) = 0,   @var{x} < 0
+## @group
+## heaviside([-inf -3 -1 1 3 inf])
+## @result{} 0     0     0     1     1     1
+## @end group
 ## @end example
 ##
-## @noindent
-## The value of the Heaviside function at @var{x} = 0 is by default 0.5,
-## but can be changed via the optional second input argument.
+## There are various conventions for @code{heaviside(0)}; this
+## function returns 0.5 by default:
+## @example
+## @group
+## heaviside(0)
+## @result{} 0.50000
+## @end group
+## @end example
+## However, this can be changed via the optional second input
+## argument:
+## @example
+## @group
+## heaviside(0, 1)
+## @result{} 1
+## @end group
+## @end example
 ## @seealso{dirac}
 ## @end deftypefn
 
 function y = heaviside (x, zero_value = 0.5)
-  if (nargin < 1)
+  if (nargin < 1 || nargin > 2)
     print_usage ();
   endif
 
+  if (iscomplex (x))
+    error ("heaviside: X must not contain complex values");
+  endif
+
   y = cast (x > 0, class (x));
-  y (x == 0) = zero_value;
+  y(x == 0) = zero_value;
+
+  y(isnan (x)) = NaN;
 endfunction
+
+
+%!assert (heaviside (0) == 0.5)
+%!assert (isnan (heaviside (nan)))
+%!assert (isequal (heaviside ([-inf -eps 0 eps inf]), [0 0 0.5 1 1]))
+%!assert (isequaln (heaviside ([-1 1 nan]), [0 1 nan]))
+%!assert (heaviside (0, 1) == 1)
+%!error <complex values> heaviside (1i)
+%!assert (isa (heaviside (single (0)), 'single'))
