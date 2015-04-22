@@ -29,6 +29,9 @@ Summary of important user-visible changes for specfun 1.2.0:
     
       char (nchoosek (double (n_string), k))
 
+ ** The `heaviside' and `dirac' functions work properly with NaN and
+    single precision.
+
 Summary of important user-visible changes for specfun 1.1.0:
 -------------------------------------------------------------------
 
