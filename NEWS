@@ -6,8 +6,8 @@ Summary of important user-visible changes for specfun 1.2.0:
       big_factorial
       lfactorial
 
- ** The following functions have removed since they now are part of
-    Octave core:
+ ** The following functions have been removed since they now are part
+    of Octave core:
 
       ellipj
       ellipke
