@@ -35,43 +35,44 @@
 
 function varargout = laguerre (order,t)
 
-  if nargin < 1 || nargin > 2
+  if (nargin < 1 || nargin > 2)
     print_usage
   endif
 
-  if order < 0 || ~isscalar (order)
-    error("Octave:invalid-input-arg","Argument 'order' must be a positive integer");
+  if (order < 0 || ~isscalar (order))
+    error ("Octave:invalid-input-arg","Argument 'order' must be a positive integer");
   endif
 
   h_prev = [0 1];
   h_now  = [-1 1];
 
-  if order == 0
+  if (order == 0)
     h = h_prev;
   else
     h = h_now;
   endif
 
+  # Recursive calculation of the polynomial coefficients
   for ord = 2:order
     x = y = [];
 
-    if length (h_now) < (1+ord)
+    if (length (h_now) < (1+ord))
       x = 0;
     endif
 
-    y  = zeros (1,(1+ord)-length(h_prev));
+    y  = zeros (1,(1+ord) - length (h_prev));
     p1 = [h_now, x];
     p2 = [x, h_now];
     p3 = [y, h_prev];
-    h  = ((2*ord -1).*p2 -p1 -(ord -1).*p3)./(ord);
+    h  = ( (2 * ord - 1) .* p2 - p1 - (ord - 1) .* p3) ./ ord;
 
     h_prev = h_now;
     h_now  = h;
   endfor
 
-  if nargin == 1
+  if (nargin == 1)
     varargout{1} = h;
-  elseif nargin == 2
+  elseif (nargin == 2)
     varargout{1} = polyval (h,t);
     varargout{2} = h;
   endif

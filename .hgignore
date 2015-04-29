@@ -27,4 +27,4 @@ syntax: regexp
 (^|/)semantic.cache$
 
 # Other text editors often create these
-(^|/)~.*
+(^|/)~*
