@@ -14,6 +14,14 @@ Summary of important user-visible changes for specfun 1.2.0:
       erfcinv
       expint
 
+ ** The following functions have been removed and are now part of the
+    symbolic package:
+
+      dirac
+      heaviside
+      laguerre (renamed laguerreL)
+      lambertw
+
  ** The following functions have been deprecated (see their help text
     for the recommended alternatives):
 

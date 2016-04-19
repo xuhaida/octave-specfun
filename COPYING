@@ -2,14 +2,10 @@ inst/big_factorial.m            GPLv3+
 inst/Ci.m                       GPLv3+
 inst/combs.m                    GPLv3+
 inst/cosint.m                   GPLv3+
-inst/dirac.m                    GPLv3+
 inst/ellipke.m                  GPLv3+
 inst/expint_E1.m                GPLv3+
 inst/expint_Ei.m                GPLv3+
 inst/expint.m                   GPLv3+
-inst/heaviside.m                GPLv3+
-inst/laguerre.m                 GPLv3+
-inst/lambertw.m                 GPLv3+
 inst/laplacian.m                modified BSD
 inst/lfactorial.m               GPLv3+
 inst/multinom_coeff.m           GPLv3+
