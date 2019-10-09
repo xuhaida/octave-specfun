@@ -125,7 +125,7 @@ function c = combvec ( varargin )
 ##    narginchk( 1,32 )
 ##    nargoutchk( 0,1 )
 
-    rhs=nargin()
+  rhs=nargin();
 ##    lhs=nargout()
     
     ##
@@ -135,13 +135,13 @@ function c = combvec ( varargin )
 ##    end
     ##
     ## Check that all arguments have the same type
-    type1 = class(varargin{1})
+    type1 = class(varargin{1});
 ##    for k = 2 : rhs
 ##      apifun_checktype ( "specfun_combine" , varargin(k) , msprintf("a%d",k) , k , type1 )
 ##    end
     ##
     if ( rhs == 1 ) then
-        c = varargin(1)
+      c = varargin(1);
         return
     end
     if ( strcmp(type1,"double") ) 
@@ -155,16 +155,14 @@ function c = combvec ( varargin )
     else
       ##
       ## Combine strings
-      c = combine2argsOther ( varargin{1} , varargin{2} )
+      c = combine2argsOther ( varargin{1} , varargin{2} );
       for i = 3:rhs
-        c = combine2argsOther ( c , varargin{i} )
+        c = combine2argsOther ( c , varargin{i} );
       end
     end
 endfunction
 
 function c = combine2argsDouble ( x , y )
-
-
   
    ## Returns all combinations of the two row vectors x and y
   cx=size(x,2);
@@ -175,9 +173,9 @@ function c = combine2argsDouble ( x , y )
   j1 = i1(ones(cy,1),:);
   j1 = reshape(j1,1,cx*cy);
    ##
-   i2 = 1:cy
-   j2 = i2(ones(cx,1),:)
-   j2 = reshape(j2',1,cx*cy)
+  i2 = 1:cy;
+  j2 = i2(ones(cx,1),:);
+  j2 = reshape(j2',1,cx*cy);
    ##
    c = [
       x(:,j1)
@@ -188,27 +186,28 @@ endfunction
 function c = combine2argsOther ( X , Y )
       ##
       ## Compute the size of the args
-      m(1) = size(X,1)
-      m(2) = size(Y,1)
-      n(1) = size(X,2)
-      n(2) = size(Y,2)
+  m(1) = size(X,1);
+  m(2) = size(Y,1);
+  n(1) = size(X,2);
+  n(2) = size(Y,2);
       ##
       ## Combine the two first arguments
       ##
       ## Create and combine a matrix of indices
-      matrix1 = reshape(1:m(1)*n(1),m(1),n(1))
-      matrix2 = reshape(1:m(2)*n(2),m(2),n(2))
-      cm = combine2argsDouble ( matrix1 , matrix2 )
+  matrix1 = reshape(1:m(1)*n(1),m(1),n(1));
+  matrix2 = reshape(1:m(2)*n(2),m(2),n(2));
+  cm = combine2argsDouble ( matrix1 , matrix2 );
+  
       ##
       ## Get the actual strings to combine
-      j = (1:n(1)*n(2))
+  j = (1:n(1)*n(2));
       for i = 1:m(1)
-        d = X(cm(i,j))
-        c(i,j) = d(:)'
+        d = X(cm(i,j));
+        c(i,j) = d(:)';
       end
       for i = 1:m(2)
-        d = Y(cm(i+m(1),j))'
-        c(i+m(1),j) = d(:)'
+        d = Y(cm(i+m(1),j))';
+        c(i+m(1),j) = d(:)';
       end
  endfunction
 
@@ -262,6 +261,17 @@ function c = combine2argsOther ( X , Y )
 %! ];
 %! assert(combvec(x,y),expected);
 
+
+## ## Directly combine strings
+%! x = ["a" "b" "c"];
+%! y = ["d" "e"];
+%! z = ["f" "g" "h"];
+%! expected=[
+%!   "aaaaaabbbbbbcccccc"
+%!   "dddeeedddeeedddeee"
+%!   "fghfghfghfghfghfgh"
+%! ];
+%! assert(combvec(x,y,z),expected);
 
 
     
