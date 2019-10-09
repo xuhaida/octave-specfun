@@ -129,16 +129,18 @@ function c = combvec ( varargin )
 ##    lhs=nargout()
     
     ##
-    ## Check that all arguments are constants or strings
-##    for k = 1 : rhs
-##      apifun_checktype ( "specfun_combine" , varargin(k) , msprintf("a%d",k) , k , ["constant" "string" "boolean" "int8" "uint8"  "int16" "uint16" "int32" "uint32"] )
-##    end
+  ## Check that all arguments are constants or strings
+  for k=1:rhs
+    
+    validateattributes( varargin{k}, {"double" "char" "boolean" "int8" "uint8"  "int16" "uint16" "int32" "uint32"},{'nonempty'} );
+  end
     ##
     ## Check that all arguments have the same type
-    type1 = class(varargin{1});
-##    for k = 2 : rhs
-##      apifun_checktype ( "specfun_combine" , varargin(k) , msprintf("a%d",k) , k , type1 )
-##    end
+  type1=class(varargin{1});
+  for k=2:rhs
+    validateattributes(varargin{k},{type1},{'nonempty'});
+  end
+  
     ##
     if ( rhs == 1 ) then
       c = varargin(1);
