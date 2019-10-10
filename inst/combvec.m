@@ -132,7 +132,7 @@ function c = combvec ( varargin )
   ## Check that all arguments are constants or strings
   for k=1:rhs
     
-    validateattributes( varargin{k}, {"double" "char" "boolean" "int8" "uint8"  "int16" "uint16" "int32" "uint32"},{'nonempty'} );
+    validateattributes( varargin{k}, {"double" "char" "logical" "int8" "uint8"  "int16" "uint16" "int32" "uint32"},{'nonempty'} );
   end
     ##
     ## Check that all arguments have the same type
