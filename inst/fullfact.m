@@ -100,6 +100,8 @@ function B = fullfact(levels)
     B = combvec ( args{1:end} )'
 endfunction
 
+
+
 %!test
 %! levels = [2 3];
 %! computed = fullfact(levels);
